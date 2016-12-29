@@ -1,0 +1,7 @@
+[package]
+name = "process_path"
+version = "0.1.0"
+authors = ["Wesley Wiser <wwiser@gmail.com>"]
+
+[dependencies]
+libc = "0.2"
