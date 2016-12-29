@@ -21,6 +21,7 @@ pub fn get_executable_path() -> Option<PathBuf> {
                 buf.retain(|c| *c != 0);
                 CString::new(buf.iter().map(|c| *c as u8).collect::<Vec<_>>())
             } else if result == -1 {
+                //_NSGetExecutablePath sets len to the required size
                 get_executable_path(len)
             } else {
                 unreachable!();
