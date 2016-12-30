@@ -1,4 +1,4 @@
-use std::ffi::{CString, NulError};
+use std::ffi::CString;
 use std::os::raw::c_char;
 use std::path::PathBuf;
 use libc::{c_int, uint32_t};
@@ -10,7 +10,7 @@ extern {
 
 
 pub fn get_executable_path() -> Option<PathBuf> {
-    fn get_executable_path(len: uint32_t) -> Result<CString, NulError> {
+    fn get_executable_path(len: uint32_t) -> Option<CString> {
         let mut buf = Vec::with_capacity(len as usize);
         let mut len = len;
         unsafe {
@@ -19,17 +19,19 @@ pub fn get_executable_path() -> Option<PathBuf> {
                 buf.set_len(len as usize);
                 //trim any excess null bytes from the vec
                 buf.retain(|c| *c != 0);
-                CString::new(buf.iter().map(|c| *c as u8).collect::<Vec<_>>())
+                CString::new(buf.iter().map(|c| *c as u8).collect::<Vec<_>>()).ok()
             } else if result == -1 {
                 //_NSGetExecutablePath sets len to the required size
                 get_executable_path(len)
             } else {
-                unreachable!();
+                //according to the docs, the possible return values should be >= -1
+                //so this shouldn't happen
+                None
             }
         }
     }
 
-    get_executable_path(256).ok()
+    get_executable_path(256)
         .and_then(|p| p.into_string().ok())
         .map(|p| p.into())
 }
