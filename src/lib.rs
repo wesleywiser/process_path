@@ -1,6 +1,17 @@
+//! A Rust library to get the path of the currently executing process.
+//! # Example
+//! ```
+//! let path = get_executable_path();
+//! match path {
+//!     None => println!("The process path could not be determined"),
+//!     Some(path) => println!("{:?}", path)
+//! }
+//! ```
+
 extern crate kernel32;
 extern crate libc;
 extern crate winapi;
+
 
 use std::path::PathBuf;
 
@@ -19,6 +30,9 @@ mod windows;
 #[cfg(windows)]
 use windows as os;
 
+
+/// Gets the path of the currently running process. If the path cannot be determined,
+/// `None` is returned. 
 pub fn get_executable_path() -> Option<PathBuf> {
     os::get_executable_path()
 }
