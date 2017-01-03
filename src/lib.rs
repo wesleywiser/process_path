@@ -1,7 +1,7 @@
 //! A Rust library to get the path of the currently executing process.
 //! # Example
 //! ```
-//! let path = get_executable_path();
+//! let path = process_path::get_executable_path();
 //! match path {
 //!     None => println!("The process path could not be determined"),
 //!     Some(path) => println!("{:?}", path)
