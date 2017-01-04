@@ -1,9 +1,10 @@
 [package]
 name = "process_path"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Wesley Wiser <wwiser@gmail.com>"]
 license = "MIT/Apache-2.0"
 repository = "https://github.com/wesleywiser/process_path"
+documentation = "https://docs.rs/process_path"
 readme = "README.md"
 description = "A Rust library to get the path of the currently executing process."
 keywords = ["current", "process", "executable"]
