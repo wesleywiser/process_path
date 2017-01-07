@@ -31,11 +31,14 @@ This program prints its path to stdout:
 
 ## Supported Platforms
 
-Platform | Underlying API
--------- | --------------
-Linux    | `readlink(/proc/self/exe)`
-macOS    | `_NSGetExecutablePath()`
-Windows  | `GetModuleFileName()`
+Platform     | Underlying API
+------------ | ---------------------------------------------
+Linux        | `readlink(/proc/self/exe)`
+FreeBSD      | `sysctl(3)` or `readlink(/proc/curproc/file)`
+NetBSD       | `readlink(/proc/curproc/exe)`
+DragonflyBSD | `readlink(/proc/curproc/file)`
+macOS        | `_NSGetExecutablePath()`
+Windows      | `GetModuleFileName()`
 
 ## License
 
