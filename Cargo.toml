@@ -1,6 +1,6 @@
 [package]
 name = "process_path"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Wesley Wiser <wwiser@gmail.com>"]
 license = "MIT/Apache-2.0"
 repository = "https://github.com/wesleywiser/process_path"
