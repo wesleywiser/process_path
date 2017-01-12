@@ -8,9 +8,12 @@
 //! }
 //! ```
 
+#[cfg(windows)]
 extern crate kernel32;
-extern crate libc;
+#[cfg(windows)]
 extern crate winapi;
+#[cfg(any(target_os="freebsd", target_os="dragonfly", target_os="netbsd", target_os="macos"))]
+extern crate libc;
 
 
 use std::path::PathBuf;
