@@ -1,4 +1,5 @@
 use std::{ffi::CStr, os::raw::c_void, path::PathBuf};
+use libc;
 
 #[inline]
 pub(crate) fn get_dylib_path() -> Option<PathBuf> {

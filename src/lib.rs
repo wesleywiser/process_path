@@ -38,6 +38,7 @@ mod bsd;
 use bsd as os;
 
 #[cfg(any(
+    target_os = "linux",
     target_os = "freebsd",
     target_os = "dragonfly",
     target_os = "netbsd",
