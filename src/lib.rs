@@ -1,8 +1,8 @@
 //! # Executable & Dynamic Library Paths
-//! Utilitye functions to get the path of the currently executing
+//! Utility functions to get the path of the currently executing
 //! process or the the current dynamic library.
 //!
-//! The latter is particualrly useful for ‘plug-in‘ type dynamic
+//! The latter is particualrly useful for ‘plug-in’ type dynamic
 //! libraries that need to load resources stored relative to the
 //! location of the library in the file system.
 //! ## Example
@@ -13,6 +13,13 @@
 //!     Some(path) => println!("{:?}", path)
 //! }
 //! ```
+//! ## Supported Platforms
+//! * Linux
+//! * FreeBSD
+//! * NetBSD
+//! * DragonflyBSD
+//! * macOS
+//! * Windows
 use std::path::PathBuf;
 
 #[cfg(target_os = "linux")]
