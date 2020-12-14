@@ -1,5 +1,11 @@
-//! A Rust library to get the path of the currently executing process.
-//! # Example
+//! # Executable & Dynamic Library Paths
+//! Utility functions to get the path of the currently executing
+//! process or the the current dynamic library.
+//!
+//! The latter is particularly useful for ‘plug-in’ type dynamic
+//! libraries that need to load resources stored relative to the
+//! location of the library in the file system.
+//! ## Example
 //! ```
 //! let path = process_path::get_executable_path();
 //! match path {
@@ -7,15 +13,13 @@
 //!     Some(path) => println!("{:?}", path)
 //! }
 //! ```
-
-#[cfg(windows)]
-extern crate kernel32;
-#[cfg(windows)]
-extern crate winapi;
-#[cfg(any(target_os="freebsd", target_os="dragonfly", target_os="netbsd", target_os="macos"))]
-extern crate libc;
-
-
+//! ## Supported Platforms
+//! * Linux
+//! * FreeBSD
+//! * NetBSD
+//! * DragonflyBSD
+//! * macOS
+//! * Windows
 use std::path::PathBuf;
 
 #[cfg(target_os = "linux")]
@@ -28,19 +32,42 @@ mod macos;
 #[cfg(target_os = "macos")]
 use macos as os;
 
-#[cfg(any(target_os="freebsd", target_os="dragonfly", target_os="netbsd"))]
+#[cfg(any(target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd"))]
 mod bsd;
-#[cfg(any(target_os="freebsd", target_os="dragonfly", target_os="netbsd"))]
+#[cfg(any(target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd"))]
 use bsd as os;
 
-#[cfg(windows)]
-mod windows;
-#[cfg(windows)]
-use windows as os;
+#[cfg(any(
+    target_os = "linux",
+    target_os = "freebsd",
+    target_os = "dragonfly",
+    target_os = "netbsd",
+    target_os = "macos"
+))]
+mod nix;
 
+#[cfg(target_os = "windows")]
+mod windows;
+#[cfg(target_os = "windows")]
+use windows as os;
 
 /// Gets the path of the currently running process. If the path cannot be determined,
 /// `None` is returned.
+#[inline]
 pub fn get_executable_path() -> Option<PathBuf> {
     os::get_executable_path()
+}
+
+/// Gets the path of the current dynamic library. If the path cannot be determined,
+/// `None` is returned.
+#[inline]
+pub fn get_dylib_path() -> Option<PathBuf> {
+    #[cfg(target_os = "windows")]
+    {
+        os::get_dylib_path()
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        nix::get_dylib_path()
+    }
 }

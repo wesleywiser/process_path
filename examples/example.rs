@@ -6,6 +6,6 @@ fn main() {
     let path = get_executable_path();
     match path {
         None => println!("The process path could not be determined"),
-        Some(path) => println!("{:?}", path)
+        Some(path) => println!("{:?}", path),
     }
 }
