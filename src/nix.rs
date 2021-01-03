@@ -1,5 +1,4 @@
 use std::{ffi::CStr, os::raw::c_void, path::PathBuf};
-use libc;
 
 #[inline]
 pub(crate) fn get_dylib_path() -> Option<PathBuf> {
@@ -16,7 +15,7 @@ pub(crate) fn get_dylib_path() -> Option<PathBuf> {
             &mut dl_info as *mut libc::Dl_info,
         ) != 0
     } {
-        if core::ptr::null() == dl_info.dli_fname {
+        if dl_info.dli_fname.is_null() {
             None
         } else {
             match unsafe { CStr::from_ptr(dl_info.dli_fname) }.to_str() {
