@@ -49,7 +49,7 @@ pub(crate) fn get_dylib_path() -> Option<PathBuf> {
                     | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
                 get_dylib_path as *const _,
                 &mut handle_module,
-            ) != 0 {
+            ) == 0 {
                 None
             } else {
                 let ret =
