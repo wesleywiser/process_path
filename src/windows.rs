@@ -2,7 +2,7 @@ use std::ffi::OsString;
 use std::os::windows::ffi::OsStringExt;
 use std::path::PathBuf;
 use std::ptr;
-use winapi::shared::minwindef::DWORD;
+use winapi::shared::minwindef::{DWORD, MAX_PATH};
 use winapi::um::{
     errhandlingapi::GetLastError,
     libloaderapi::{
@@ -36,7 +36,7 @@ pub(crate) fn get_executable_path() -> Option<PathBuf> {
         }
     }
 
-    get_executable_path(256)
+    get_executable_path(MAX_PATH)
 }
 
 pub(crate) fn get_dylib_path() -> Option<PathBuf> {
@@ -74,5 +74,5 @@ pub(crate) fn get_dylib_path() -> Option<PathBuf> {
         }
     }
 
-    get_dylib_path(256)
+    get_dylib_path(MAX_PATH)
 }
