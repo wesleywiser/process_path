@@ -10,7 +10,7 @@ library in the file system.
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-process_path = "0.1.3"
+process_path = "0.1.4"
 ```
 and this to your crate root:
 ```rust
