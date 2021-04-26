@@ -2,15 +2,15 @@ use std::ffi::OsString;
 use std::os::windows::ffi::OsStringExt;
 use std::path::PathBuf;
 use std::ptr;
-use winapi::shared::minwindef::DWORD;
+use winapi::shared::minwindef::{DWORD, MAX_PATH};
+use winapi::shared::winerror::ERROR_INSUFFICIENT_BUFFER;
 use winapi::um::{
     errhandlingapi::GetLastError,
     libloaderapi::{
-       GetModuleFileNameW, GetModuleHandleExW, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
+        GetModuleFileNameW, GetModuleHandleExW, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
         GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-    }
+    },
 };
-use winapi::shared::winerror::ERROR_INSUFFICIENT_BUFFER;
 
 pub(crate) fn get_executable_path() -> Option<PathBuf> {
     fn get_executable_path(len: usize) -> Option<PathBuf> {
@@ -36,7 +36,7 @@ pub(crate) fn get_executable_path() -> Option<PathBuf> {
         }
     }
 
-    get_executable_path(256)
+    get_executable_path(MAX_PATH)
 }
 
 pub(crate) fn get_dylib_path() -> Option<PathBuf> {
@@ -49,7 +49,8 @@ pub(crate) fn get_dylib_path() -> Option<PathBuf> {
                     | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
                 get_dylib_path as *const _,
                 &mut handle_module,
-            ) != 0 {
+            ) == 0
+            {
                 None
             } else {
                 let ret =
@@ -74,5 +75,5 @@ pub(crate) fn get_dylib_path() -> Option<PathBuf> {
         }
     }
 
-    get_dylib_path(256)
+    get_dylib_path(MAX_PATH)
 }
