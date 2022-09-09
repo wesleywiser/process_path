@@ -20,11 +20,12 @@
 //! * DragonflyBSD
 //! * macOS
 //! * Windows
+//! * illumos
 use std::path::PathBuf;
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "illumos"))]
 mod linux;
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "illumos"))]
 use linux as os;
 
 #[cfg(target_os = "macos")]
@@ -42,7 +43,8 @@ use bsd as os;
     target_os = "freebsd",
     target_os = "dragonfly",
     target_os = "netbsd",
-    target_os = "macos"
+    target_os = "macos",
+    target_os = "illumos"
 ))]
 mod nix;
 
