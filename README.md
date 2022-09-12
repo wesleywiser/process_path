@@ -40,7 +40,7 @@ NetBSD       | `readlink(/proc/curproc/exe)`                 | `dladdr()`
 DragonflyBSD | `readlink(/proc/curproc/file)`                | `dladdr()`
 macOS        | `_NSGetExecutablePath()`                      | `dladdr()`
 Windows      | `GetModuleFileName()`                         | `GetModuleHandleEx()`
-
+illumos      | `readlink(/proc/self/exe)`                    | `dladdr()`
 
 ## License
 Copyright Wesley Wiser and `process_path` contributors.
