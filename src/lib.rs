@@ -30,15 +30,10 @@ mod linux;
 #[cfg(any(target_os = "linux", target_os = "illumos", target_os = "android"))]
 use linux as os;
 
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 mod macos;
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 use macos as os;
-
-#[cfg(target_os = "ios")]
-mod ios;
-#[cfg(target_os = "ios")]
-use ios as os;
 
 #[cfg(any(target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd"))]
 mod bsd;
