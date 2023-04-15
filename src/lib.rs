@@ -22,7 +22,7 @@
 //! * Windows
 //! * illumos
 //! * Android
-//! * iOS 
+//! * iOS
 use std::path::PathBuf;
 
 #[cfg(any(target_os = "linux", target_os = "illumos", target_os = "android"))]
