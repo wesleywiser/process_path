@@ -22,6 +22,7 @@
 //! * Windows
 //! * illumos
 //! * Android
+//! * iOS
 use std::path::PathBuf;
 
 #[cfg(any(target_os = "linux", target_os = "illumos", target_os = "android"))]
@@ -29,9 +30,9 @@ mod linux;
 #[cfg(any(target_os = "linux", target_os = "illumos", target_os = "android"))]
 use linux as os;
 
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 mod macos;
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 use macos as os;
 
 #[cfg(any(target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd"))]
@@ -46,7 +47,8 @@ use bsd as os;
     target_os = "netbsd",
     target_os = "macos",
     target_os = "illumos",
-    target_os = "android"
+    target_os = "android",
+    target_os = "ios",
 ))]
 mod nix;
 

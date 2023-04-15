@@ -13,5 +13,5 @@ keywords = ["current", "process", "executable", "dylib", "dll"]
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.9", features = ["errhandlingapi", "libloaderapi", "minwindef", "winerror" ] }
 
-[target.'cfg(any(target_os="linux", target_os="freebsd", target_os="dragonfly", target_os="netbsd", target_os="macos", target_os="illumos", target_os="android"))'.dependencies]
+[target.'cfg(any(target_os="linux", target_os="freebsd", target_os="dragonfly", target_os="netbsd", target_os="macos", target_os="illumos", target_os="android", target_os="ios"))'.dependencies]
 libc = "0.2.81"
